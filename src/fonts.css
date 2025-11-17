@@ -1,0 +1,23 @@
+/* 日本語フォント */
+@font-face {
+  font-family: 'Misaki Gothic';
+  src: url('/fonts/misaki_gothic_2nd.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3040-309F, U+30A0-30FF, U+4E00-9FAF, U+FF00-FFEF; /* ひらがな、カタカナ、漢字、全角記号 */
+}
+
+/* 英字フォント */
+@font-face {
+  font-family: 'Minecraft';
+  src: url('/fonts/Minecraft.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-007F; /* ASCII文字範囲（英数字、記号） */
+}
+
+.pixel-font {
+  font-family: 'Minecraft', 'Misaki Gothic', sans-serif;
+}

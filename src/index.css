@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+.text-shadow {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* ブロック破壊アニメーション */
+@keyframes blockBreak {
+  0% { 
+    transform: scale(1) rotate(0deg); 
+    opacity: 1;
+  }
+  25% { 
+    transform: scale(1.05) rotate(2deg); 
+  }
+  50% { 
+    transform: scale(1.1) rotate(-2deg); 
+  }
+  75% { 
+    transform: scale(0.8) rotate(5deg); 
+    opacity: 0.7;
+  }
+  100% { 
+    transform: scale(0) rotate(15deg); 
+    opacity: 0; 
+  }
+}
+
+.block-breaking {
+  animation: blockBreak 0.3s ease-out forwards;
+}
+
+/* ツールチップアニメーション */
+@keyframes tooltipFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.tooltip-enter {
+  animation: tooltipFadeIn 0.2s ease-out forwards;
+}
+
+/* インフォメーション表示アニメーション */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* チェスト用のスロットスタイル */
+.chest-slot {
+  background-image: 
+    linear-gradient(45deg, transparent 25%, rgba(0,0,0,.1) 25%), 
+    linear-gradient(-45deg, transparent 25%, rgba(0,0,0,.1) 25%), 
+    linear-gradient(45deg, rgba(0,0,0,.1) 75%, transparent 75%), 
+    linear-gradient(-45deg, rgba(0,0,0,.1) 75%, transparent 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0px;
+}
+
+/* チェスト内のアイテムホバーエフェクト */
+.chest-slot:hover {
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* チェストのスクロールバーカスタマイズ */
+.chest-inventory {
+  scrollbar-width: thin;
+  scrollbar-color: #8B5A3C #4A4A4A;
+}
+
+.chest-inventory::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chest-inventory::-webkit-scrollbar-track {
+  background: #4A4A4A;
+  border-radius: 4px;
+}
+
+.chest-inventory::-webkit-scrollbar-thumb {
+  background: #8B5A3C;
+  border-radius: 4px;
+}
+
+.chest-inventory::-webkit-scrollbar-thumb:hover {
+  background: #A0673F;
+}
+
+/* ピクセル画像の最適化 */
+img[data-minecraft-texture] {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-crisp-edges;
+  image-rendering: pixelated;
+}
+
+/* 編集モーダル用のハイライト */
+.edit-modal-highlight {
+  animation: editHighlight 0.3s ease-in-out;
+}
+
+@keyframes editHighlight {
+  0% { box-shadow: 0 0 0 rgba(59, 130, 246, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+  100% { box-shadow: 0 0 0 rgba(59, 130, 246, 0.5); }
+}
