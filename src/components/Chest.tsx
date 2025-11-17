@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { CompletedTodo } from '../types';
-import { getBlockColor, getBlockName, getBlockTypeFromPriority, getBlockTexture, getChestImagePath, getInventoryImagePath } from '../utils/blockUtils';
+import { getBlockColor, getBlockName, getBlockTypeFromPriority, getBlockTexture, getChestImagePath } from '../utils/blockUtils';
 import CompletedTooltip from './CompletedTooltip';
 
 type Props = {
@@ -70,7 +70,7 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
 
   return (
     <>
-      <div className="rounded-lg p-4 bg-transparent pixel-font">
+      <div className="rounded-lg p-4 pixel-font" style={{ backgroundColor: '#c6c6c6' }}>
         {/* チェスト画像ボタン */}
         <div className="flex flex-col items-center">
           <div 
@@ -142,14 +142,7 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
 
             {/* Minecraft風チェストインベントリ（9列グリッド） */}
             <div 
-              className="grid grid-cols-9 gap-x-1.5 gap-y-1.5 max-h-80 overflow-y-auto p-4 pt-10 chest-inventory"
-              style={{
-                backgroundImage: `url('${getInventoryImagePath()}')`,
-                backgroundSize: '100% auto',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center top',
-                imageRendering: 'pixelated',
-              }}
+              className="grid grid-cols-9 gap-1 p-2 rounded max-h-80 overflow-y-auto"
             >
               {/* 完了済みタスクを配置 */}
               {completedTodos.slice(0, MAX_CHEST_CAPACITY).map((todo, index) => {
@@ -160,46 +153,38 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
                 return (
                   <div
                     key={todo.id}
-                    className={`
-                      w-6 h-6 border cursor-pointer relative chest-slot overflow-hidden
-                      ${getBlockColor(blockType)}
-                      ${isOverdue ? 'ring-1 ring-red-400' : ''}
-                      hover:scale-110 transition-transform
-                      shadow-md group
-                    `}
+                    className="cursor-pointer relative overflow-hidden hover:scale-110 transition-transform shadow-md group rounded"
+                    style={{
+                      backgroundColor: '#94979b',
+                      padding: '1px',
+                      width: '24px',
+                      height: '24px',
+                    }}
                     onClick={() => handleRestore(todo)}
                     onContextMenu={(e) => handleDelete(todo, e)}
                     onMouseEnter={(e) => handleMouseEnter(todo, e)}
                     onMouseLeave={handleMouseLeave}
                     onMouseMove={handleMouseMove}
-                    style={{
-                      gridColumn: (index % 9) + 1,
-                      gridRow: Math.floor(index / 9) + 1,
-                      backgroundImage: `url(${blockTexture})`,
-                      backgroundSize: 'cover',
-                      backgroundRepeat: 'repeat',
-                      imageRendering: 'pixelated',
-                    }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-black/10"></div>
+                    <div
+                      className={`w-6 h-6 border relative ${getBlockColor(blockType)} ${isOverdue ? 'ring-1 ring-red-400' : ''}`}
+                      style={{
+                        backgroundImage: `url(${blockTexture})`,
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'repeat',
+                        imageRendering: 'pixelated',
+                      }}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-black/10"></div>
+                      
+                      {/* 期限超過マーク（極小） */}
+                      {isOverdue && (
+                        <div className="absolute top-0 right-0 w-1 h-1 bg-red-500 rounded-full"></div>
+                      )}
 
-                    {/* 右クリック削除のヒント（ホバー時） */}
-                    <div className="absolute inset-0 bg-red-500/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center justify-center">
-                      <span 
-                        className="text-white font-bold"
-                        style={{ fontSize: '6px' }}
-                      >
-                        右クリック削除
-                      </span>
+                      {/* 優先度インジケーター（極小） */}
+                      <div className="absolute bottom-0 left-0 w-1 h-1 bg-yellow-400 rounded-full"></div>
                     </div>
-                    
-                    {/* 期限超過マーク（極小） */}
-                    {isOverdue && (
-                      <div className="absolute top-0 right-0 w-1 h-1 bg-red-500 rounded-full"></div>
-                    )}
-
-                    {/* 優先度インジケーター（極小） */}
-                    <div className="absolute bottom-0 left-0 w-1 h-1 bg-yellow-400 rounded-full"></div>
                   </div>
                 );
               })}
@@ -208,12 +193,16 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
               {Array.from({ length: Math.max(0, MAX_CHEST_CAPACITY - Math.min(completedTodos.length, MAX_CHEST_CAPACITY)) }).map((_, index) => (
                 <div
                   key={`empty-${index}`}
-                  className="w-6 h-6 border border-stone-600 bg-stone-700/30 opacity-30 chest-slot"
+                  className="rounded"
                   style={{
-                    gridColumn: ((Math.min(completedTodos.length, MAX_CHEST_CAPACITY) + index) % 9) + 1,
-                    gridRow: Math.floor((Math.min(completedTodos.length, MAX_CHEST_CAPACITY) + index) / 9) + 1,
+                    backgroundColor: '#94979b',
+                    padding: '1px',
+                    width: '24px',
+                    height: '24px',
                   }}
-                ></div>
+                >
+                  <div className="w-6 h-6 border border-dashed border-gray-400/50 opacity-30 rounded"></div>
+                </div>
               ))}
             </div>
             
@@ -258,6 +247,6 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
       )}
     </>
   );
-};
+}
 
 export default Chest;

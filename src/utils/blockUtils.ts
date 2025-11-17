@@ -74,6 +74,5 @@ export const getBlockName = (blockType: BlockType): string => {
 };
 
 export const getChestImagePath = (): string => getImagePath('chest.png');
-export const getInventoryImagePath = (): string => getImagePath('inventory.png');
 export const getInfoButtonImagePath = (): string => getImagePath('info_button.png');
 export const getBackgroundImagePath = (): string => getImagePath('background.png');

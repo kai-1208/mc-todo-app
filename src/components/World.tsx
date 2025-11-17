@@ -186,7 +186,10 @@ const World: React.FC<Props> = ({ todos, updateIsDone, addTodo, updateTodo, dele
     <div className="relative">
       {/* 背景 */}
       <div
-        className="min-h-[600px] rounded-lg p-4 relative bg-transparent pt-0 pixel-font"
+        className="min-h-[300px] rounded-lg p-4 relative bg-transparent pt-4 pixel-font"
+        style={{
+          backgroundColor: '#c6c6c6',
+        }}
         onContextMenu={handleRightClick}
       >
         <div className="h-20 flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
@@ -247,15 +250,22 @@ const World: React.FC<Props> = ({ todos, updateIsDone, addTodo, updateTodo, dele
         {/* ブロック配置エリア（Minecraft風 9列グリッド） */}
         <div className="clear-both">
           <div 
-            className="grid grid-cols-9 gap-x-1.5 gap-y-3.5 justify-items-center relative z-10"
+            className="grid grid-cols-9 gap-x-1.5 gap-y-3.5 justify-items-center relative z-10 mt-2"
             style={{
               maxWidth: '100%', // App.tsxのlg:col-span-2に収まるように
             }}
           >
             {/* ソート済みアクティブなタスクブロック */}
             {sortedActiveTodos.map((todo, index) => (
-              <BlockComponent
+              <div
                 key={todo.id}
+                className='rounded'
+                style={{
+                  backgroundColor: '#94979b',
+                  padding: '2px',
+                }}
+              >
+              <BlockComponent
                 todo={todo}
                 onComplete={handleCompleteWithEffect}
                 onEdit={handleEditTodo}
@@ -264,6 +274,30 @@ const World: React.FC<Props> = ({ todos, updateIsDone, addTodo, updateTodo, dele
                   y: Math.floor(index / 9) 
                 }}
               />
+              </div>
+            ))}
+
+            {/* 空きスロット表示 */}
+            {Array.from({ length: Math.max(0, MAX_BLOCKS - activeTodos.length) }).map((_, index) => (
+              <div
+                key={`empty-slot-${index}`}
+                className="rounded"
+                style={{
+                  backgroundColor: '#94979b',
+                  padding: '2px',
+                }}
+                onContextMenu={handleRightClick}
+                title="右クリックでタスクを追加"
+              >
+                <div
+                  className="border border-dashed border-gray-400/50 opacity-30 hover:opacity-50 hover:border-gray-500/70 transition-all duration-200 cursor-pointer rounded flex items-center justify-center"
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                  }}
+                >
+                </div>
+              </div>
             ))}
           </div>
         </div>

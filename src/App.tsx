@@ -4,7 +4,7 @@ import { initTodos } from "./initTodos";
 import World from "./components/World";
 import Chest from "./components/Chest";
 import { v4 as uuid } from "uuid";
-import { getInfoButtonImagePath, getInventoryImagePath, getBackgroundImagePath } from "./utils/blockUtils";
+import { getInfoButtonImagePath, getBackgroundImagePath } from "./utils/blockUtils";
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -167,18 +167,9 @@ const App = () => {
         </div>
 
         {/* メインエリア */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
           {/* インベントリ（メインエリア） */}
-          <div 
-            className="lg:col-span-2 p-4"
-            style={{
-              backgroundImage: `url('${getInventoryImagePath()}')`,
-              backgroundSize: '100% auto',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center top',
-              imageRendering: 'pixelated',
-            }}
-          >
+          <div className="lg:col-span-2 p-4">
             <World 
               todos={todos}
               updateIsDone={updateIsDone}
