@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react-swc"
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
-const repositoryName = "react-todo-app";
+const repositoryName = "mc-todo-app";
 
 // https://vite.dev/config/
 export default defineConfig({
