@@ -186,7 +186,7 @@ const World: React.FC<Props> = ({ todos, updateIsDone, addTodo, updateTodo, dele
     <div className="relative">
       {/* 背景 */}
       <div
-        className="min-h-[500px] rounded-lg p-4 relative bg-transparent pt-0 pixel-font"
+        className="min-h-[600px] rounded-lg p-4 relative bg-transparent pt-0 pixel-font"
         onContextMenu={handleRightClick}
       >
         <div className="h-20 flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">

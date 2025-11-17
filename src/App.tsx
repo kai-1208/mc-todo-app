@@ -4,7 +4,7 @@ import { initTodos } from "./initTodos";
 import World from "./components/World";
 import Chest from "./components/Chest";
 import { v4 as uuid } from "uuid";
-import { getInfoButtonImagePath, getInventoryImagePath } from "./utils/blockUtils";
+import { getInfoButtonImagePath, getInventoryImagePath, getBackgroundImagePath } from "./utils/blockUtils";
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -148,14 +148,22 @@ const App = () => {
   const uncompletedCount = todos.filter(todo => !todo.isDone).length;
 
   return (
-    <div className="min-h-screen bg-sky-200 p-4 relative pixel-font">
+    <div 
+      className="min-h-screen bg-sky-200 p-4 relative pixel-font"
+      style={{
+        backgroundImage: `url('${getBackgroundImagePath()}')`,
+        imageRendering: 'pixelated',
+      }}
+    >
       {/* ヘッダー */}
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-2 text-gray-800">
-          🧱 Minecraft風ToDoアプリ
-        </h1>
-        <div className="text-center text-gray-600 mb-6">
-          未完了タスク: {uncompletedCount}個 | 完了済み: {completedTodos.length}個
+        <div className="text-center mb-6 bg-white/50 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+          <h1 className="text-4xl font-bold mb-2 text-gray-800">
+            🧱 Minecraft Todo App
+          </h1>
+          <div className="text-gray-600">
+            未完了タスク: {uncompletedCount}個 | 完了済み: {completedTodos.length}個
+          </div>
         </div>
 
         {/* メインエリア */}

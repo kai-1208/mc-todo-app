@@ -107,7 +107,7 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
           
           {/* チェストラベル */}
           <div 
-            className="mt-2 font-bold text-gray-800 bg-white/80 rounded px-2 py-1 flex items-center cursor-pointer hover:bg-white/90 transition-colors"
+            className="mt-1 font-bold text-gray-800 bg-white/80 rounded px-2 py-1 flex items-center cursor-pointer hover:bg-white/90 transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             style={{ fontSize: textSizes.label }}
           >
@@ -119,10 +119,10 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
         </div>
         
         {isOpen && (
-          <div className="mt-4">
+          <div className="mt-2">
             {/* チェスト操作説明とボタン */}
-            <div className="flex flex-col space-y-2 mb-3">
-              <div className="text-gray-600 text-center" style={{ fontSize: textSizes.small }}>
+            <div className="flex flex-col space-y-2 mb-2">
+              <div className="text-gray-600 bg-white/80 rounded text-center py-1" style={{ fontSize: textSizes.small }}>
                 <div>左クリック: 復活 | 右クリック: 削除</div>
               </div>
               {completedTodos.length > 0 && (
@@ -218,7 +218,7 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
             </div>
             
             {/* チェストの統計情報 */}
-            <div className={`mt-2 text-gray-800 text-center bg-white/80 rounded px-2 py-1 ${
+            <div className={`mt-1 text-gray-800 text-center bg-white/80 rounded px-2 py-1 ${
               isChestFull ? 'bg-red-100 text-red-800' : ''
             }`}
             style={{ fontSize: textSizes.main }}
