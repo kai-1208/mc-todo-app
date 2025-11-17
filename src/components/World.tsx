@@ -192,7 +192,7 @@ const World: React.FC<Props> = ({ todos, updateIsDone, addTodo, updateTodo, dele
         }}
         onContextMenu={handleRightClick}
       >
-        <div className="h-20 flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
           <div className="flex-1">
             <div className="text-center text-gray-800 mb-1 bg-white/80 rounded px-2 py-1">
               <span style={{ fontSize: textSizes.main }}>右クリックでタスクを追加 | 左クリックでタスク完了 | ブロック右クリックで編集</span>
