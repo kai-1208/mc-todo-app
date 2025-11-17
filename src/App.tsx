@@ -4,6 +4,7 @@ import { initTodos } from "./initTodos";
 import World from "./components/World";
 import Chest from "./components/Chest";
 import { v4 as uuid } from "uuid";
+import { getInfoButtonImagePath, getInventoryImagePath } from "./utils/blockUtils";
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -163,7 +164,7 @@ const App = () => {
           <div 
             className="lg:col-span-2 p-4"
             style={{
-              backgroundImage: `url('/images/inventory.png')`,
+              backgroundImage: `url('${getInventoryImagePath()}')`,
               backgroundSize: '100% auto',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'center top',
@@ -200,7 +201,7 @@ const App = () => {
           className="bg-transparent hover:bg-gray-100/20 transition-colors p-2 rounded"
         >
           <img 
-            src="/images/info_button.png" 
+            src={getInfoButtonImagePath()}
             alt="Info" 
             className="w-12 h-12"
             style={{ imageRendering: 'pixelated' }}

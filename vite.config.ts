@@ -22,4 +22,5 @@ export default defineConfig({
     strictPort: false,
     open: true,
   },
+  publicDir: 'public',
 });

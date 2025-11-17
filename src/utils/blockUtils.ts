@@ -1,5 +1,16 @@
 import type { BlockType } from '../types';
 
+// ベースパスを取得する関数
+const getBasePath = (): string => {
+  return import.meta.env.BASE_URL || '/';
+};
+
+// 画像パスを取得する関数
+const getImagePath = (imageName: string): string => {
+  const basePath = getBasePath();
+  return `${basePath}images/${imageName}`;
+};
+
 export const getBlockTypeFromPriority = (priority: number): BlockType => {
   switch (priority) {
     case 1:
@@ -35,15 +46,15 @@ export const getBlockColor = (blockType: BlockType): string => {
 export const getBlockTexture = (blockType: BlockType): string => {
   switch (blockType) {
     case 'obsidian':
-      return '/images/obsidian.png';
+      return getImagePath('obsidian.png');
     case 'iron':
-      return '/images/iron.png';
+      return getImagePath('iron.png');
     case 'stone':
-      return '/images/stone.png';
+      return getImagePath('stone.png');
     case 'wood':
-      return '/images/wood.png';
+      return getImagePath('wood.png');
     case 'dirt':
-      return '/images/dirt.png';
+      return getImagePath('dirt.png');
   }
 };
 
@@ -61,3 +72,7 @@ export const getBlockName = (blockType: BlockType): string => {
       return '土ブロック';
   }
 };
+
+export const getChestImagePath = (): string => getImagePath('chest.png');
+export const getInventoryImagePath = (): string => getImagePath('inventory.png');
+export const getInfoButtonImagePath = (): string => getImagePath('info_button.png');

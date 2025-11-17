@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { CompletedTodo } from '../types';
-import { getBlockColor, getBlockName, getBlockTypeFromPriority, getBlockTexture } from '../utils/blockUtils';
+import { getBlockColor, getBlockName, getBlockTypeFromPriority, getBlockTexture, getChestImagePath, getInventoryImagePath } from '../utils/blockUtils';
 import CompletedTooltip from './CompletedTooltip';
 
 type Props = {
@@ -78,7 +78,7 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
             onClick={() => setIsOpen(!isOpen)}
           >
             <img 
-              src="/images/chest.png" 
+              src={getChestImagePath()}
               alt="Chest" 
               className="w-16 h-16 hover:scale-110 transition-transform"
               style={{ imageRendering: 'pixelated' }}
@@ -144,7 +144,7 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
             <div 
               className="grid grid-cols-9 gap-x-1.5 gap-y-1.5 max-h-80 overflow-y-auto p-4 pt-10 chest-inventory"
               style={{
-                backgroundImage: `url('/images/inventory.png')`,
+                backgroundImage: `url('${getInventoryImagePath()}')`,
                 backgroundSize: '100% auto',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center top',
