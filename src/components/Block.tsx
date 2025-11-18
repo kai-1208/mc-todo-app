@@ -13,7 +13,15 @@ type Props = {
   gridPosition: { x: number; y: number };
   crackLevel: number;
   isChestFull: boolean;
-  responsiveClasses: any;
+  responsiveClasses?: { // 型を明確に定義
+    blockSize?: string;
+    emptySlotSize?: {
+      width: string;
+      height: string;
+    };
+    gridGap?: string;
+    containerPadding?: string;
+  };
 };
 
 const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPosition, crackLevel=0, isChestFull=false, responsiveClasses }) => {
@@ -22,6 +30,18 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [breakingProgress, setBreakingProgress] = useState(0);
+
+  const getBlockBreakingTime = (priority: number): number => {
+    const blockType = getBlockTypeFromPriority(todo.priority);
+    const breakingTimes = {
+      'dirt': 1000,
+      'stone': 2000,
+      'wood': 1500,
+      'iron': 3000,
+      'obsidian': 4000,
+    };
+    return breakingTimes[blockType] || 1000;
+  };
 
   const handleClick = () => {
     if (isBreaking || isCompleted) return;
@@ -67,18 +87,6 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
     requestAnimationFrame(updateProgress);
   };
 
-  const getBlockBreakingTime = (priority: number): number => {
-    const blockType = getBlockTypeFromPriority(todo.priority);
-    const breakingTimes = {
-      'dirt': 1000,
-      'stone': 2000,
-      'wood': 1500,
-      'iron': 3000,
-      'obsidian': 4000,
-    };
-    return breakingTimes[blockType] || 1000;
-  };
-
   const handleRightClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -104,7 +112,6 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
   const blockType = getBlockTypeFromPriority(todo.priority);
   const blockColorClass = getBlockColor(blockType);
   const blockTexture = getBlockTexture(blockType);
-  const blockName = getBlockName(blockType);
 
   const isOverdue = todo.deadline && new Date() > todo.deadline;
   const isNearDeadline = todo.deadline && !isOverdue && 

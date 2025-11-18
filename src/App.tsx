@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import type { Todo, CompletedTodo } from "./types";
-import { initTodos } from "./initTodos";
 import World from "./components/World";
 import Chest from "./components/Chest";
 import { v4 as uuid } from "uuid";
@@ -26,7 +25,7 @@ const App = () => {
       }));
       setTodos(convertedTodos);
     } else {
-      setTodos(initTodos);
+      setTodos([]);
     }
 
     // 完了済みタスクを読み込み
