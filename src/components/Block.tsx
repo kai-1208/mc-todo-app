@@ -171,21 +171,21 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
         {isBreaking && (
           <div className="absolute inset-0 bg-white/50 animate-pulse"></div>
         )}
-      </div>
 
-      {/* ひび割れエフェクト */}
-      {crackLevel > 0 && crackLevel <= 5 && (
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: `url('${getCrackImagePath(crackLevel)}')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            imageRendering: 'pixelated',
-            zIndex: 10,
-          }}
-        />
-      )}
+        {/* ひび割れエフェクト */}
+        {crackLevel > 0 && crackLevel <= 5 && (
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: `url('${getCrackImagePath(crackLevel)}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              imageRendering: 'pixelated',
+              zIndex: 10,
+            }}
+          />
+        )}
+      </div>
 
       {/* カスタムツールチップ */}
       <Tooltip
