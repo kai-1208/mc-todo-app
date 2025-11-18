@@ -14,6 +14,13 @@ type ParticleEffectData = {
   duration: number;
 };
 
+type CrackState = {
+  todoId: string;
+  level: number;
+  startTime: number;
+  duration: number;
+};
+
 type SortOption = 'none' | 'deadline' | 'priority';
 
 type Props = {
@@ -32,6 +39,7 @@ const World: React.FC<Props> = ({ todos, updateIsDone, addTodo, updateTodo, dele
   const [particleEffects, setParticleEffects] = useState<ParticleEffectData[]>([]);
   const [pendingCompletions, setPendingCompletions] = useState<Set<string>>(new Set());
   const [sortBy, setSortBy] = useState<SortOption>('none');
+  const [crackStates, setCrackStates] = useState<CrackState[]>([]);
 
   const MAX_BLOCKS = 27;
 
@@ -120,6 +128,46 @@ const World: React.FC<Props> = ({ todos, updateIsDone, addTodo, updateTodo, dele
 
       const breakingTime = getBlockBreakingTime(todo.priority);
       const effectId = `effect-${id}-${Date.now()}`;
+
+      // ひび割れ状態を開始
+      const crackState: CrackState = {
+        todoId: id,
+        level: 1,
+        startTime: Date.now(),
+        duration: breakingTime,
+      };
+      setCrackStates(prev => [...prev, crackState]);
+      
+      // ひび割れの進行をアニメーション
+      const updateCrack = () => {
+        const elapsed = Date.now() - crackState.startTime;
+        const progress = Math.min(elapsed / breakingTime, 1);
+        
+        // 0.0~1.0の進行状況を1~5のひび割れレベルにマッピング
+        let newLevel = 1;
+        if (progress >= 0.8) newLevel = 5;
+        else if (progress >= 0.6) newLevel = 4;
+        else if (progress >= 0.4) newLevel = 3;
+        else if (progress >= 0.2) newLevel = 2;
+        else newLevel = 1;
+        
+        setCrackStates(prev => prev.map(crack => 
+          crack.todoId === id 
+            ? { ...crack, level: newLevel }
+            : crack
+        ));
+        
+        if (progress < 1) {
+          requestAnimationFrame(updateCrack);
+        } else {
+          // ひび割れエフェクト完了後にクリア
+          setTimeout(() => {
+            setCrackStates(prev => prev.filter(crack => crack.todoId !== id));
+          }, 100);
+        }
+      };
+      
+      requestAnimationFrame(updateCrack);
       
       // パーティクルエフェクトを追加
       const newEffect: ParticleEffectData = {
@@ -175,6 +223,12 @@ const World: React.FC<Props> = ({ todos, updateIsDone, addTodo, updateTodo, dele
     todo.deadline >= currentTime && 
     todo.deadline <= new Date(currentTime.getTime() + 24 * 60 * 60 * 1000)
   );
+
+  // 各ブロックのひび割れレベルを取得する関数
+  const getCrackLevelForTodo = (todoId: string): number => {
+    const crackState = crackStates.find(crack => crack.todoId === todoId);
+    return crackState ? crackState.level : 0;
+  };
 
   const textSizes = {
     main: '12px',
@@ -273,6 +327,7 @@ const World: React.FC<Props> = ({ todos, updateIsDone, addTodo, updateTodo, dele
                   x: index % 9, 
                   y: Math.floor(index / 9) 
                 }}
+                crackLevel={getCrackLevelForTodo(todo.id)}
               />
               </div>
             ))}

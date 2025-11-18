@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Todo } from '../types';
-import { getBlockColor, getBlockName, getBlockTypeFromPriority, getBlockTexture } from '../utils/blockUtils';
+import { getBlockColor, getBlockName, getBlockTypeFromPriority, getBlockTexture, getCrackImagePath } from '../utils/blockUtils';
 import Tooltip from './Tooltip';
 
 type Props = {
@@ -11,9 +11,10 @@ type Props = {
   }) => void;
   onEdit: (todo: Todo, position: { x: number; y: number }) => void;
   gridPosition: { x: number; y: number };
+  crackLevel: number;
 };
 
-const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPosition }) => {
+const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPosition, crackLevel=0 }) => {
   const [isBreaking, setIsBreaking] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -108,7 +109,7 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
     new Date(Date.now() + 24 * 60 * 60 * 1000) > todo.deadline;
 
   return (
-    <>
+    <div className='relative'>
       <div
         data-block-id={todo.id}
         className={`
@@ -172,13 +173,27 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
         )}
       </div>
 
+      {/* ひび割れエフェクト */}
+      {crackLevel > 0 && crackLevel <= 5 && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: `url('${getCrackImagePath(crackLevel)}')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            imageRendering: 'pixelated',
+            zIndex: 10,
+          }}
+        />
+      )}
+
       {/* カスタムツールチップ */}
       <Tooltip
         todo={todo}
         visible={showTooltip && !isBreaking && !isCompleted}
         position={tooltipPosition}
       />
-    </>
+    </div>
   );
 };
 
