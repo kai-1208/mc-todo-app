@@ -65,11 +65,11 @@ export const getBlockName = (blockType: BlockType): string => {
     case 'iron':
       return '鉄鉱石';
     case 'stone':
-      return '石ブロック';
+      return '石';
     case 'wood':
-      return '木材ブロック';
+      return 'オークの板材';
     case 'dirt':
-      return '土ブロック';
+      return '土';
   }
 };
 
