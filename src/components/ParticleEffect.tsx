@@ -84,7 +84,7 @@ const ParticleEffect: React.FC<Props> = ({ effects, onEffectComplete }) => {
           x: particle.x + particle.vx,
           y: particle.y + particle.vy,
           vy: particle.vy + 0.4,
-          vx: particle.vx * 0.98,
+          vx: particle.vx * 0.94,
           life: particle.life - 1,
         }))
         .filter(particle => particle.life > 0);
