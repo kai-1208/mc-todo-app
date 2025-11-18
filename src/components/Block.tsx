@@ -12,9 +12,11 @@ type Props = {
   onEdit: (todo: Todo, position: { x: number; y: number }) => void;
   gridPosition: { x: number; y: number };
   crackLevel: number;
+  isChestFull: boolean;
+  responsiveClasses: any;
 };
 
-const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPosition, crackLevel=0 }) => {
+const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPosition, crackLevel=0, isChestFull=false, responsiveClasses }) => {
   const [isBreaking, setIsBreaking] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -23,6 +25,7 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
 
   const handleClick = () => {
     if (isBreaking || isCompleted) return;
+    if (isChestFull) return;
     
     setIsBreaking(true);
     
@@ -38,23 +41,6 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
       const blockType = getBlockTypeFromPriority(todo.priority);
       const blockTexture = getBlockTexture(blockType);
 
-      const breakingTime = getBlockBreakingTime(todo.priority);
-      const startTime = Date.now();
-      
-      const updateProgress = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / breakingTime, 1);
-        setBreakingProgress(progress);
-        
-        if (progress < 1) {
-          requestAnimationFrame(updateProgress);
-        } else {
-          setIsCompleted(true);
-        }
-      };
-      
-      requestAnimationFrame(updateProgress);
-      
       // パーティクル情報と共に完了処理を呼び出し
       onComplete(todo.id, true, {
         blockTexture,
@@ -63,6 +49,22 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
     } else {
       onComplete(todo.id, true);
     }
+
+    const breakingTime = getBlockBreakingTime(todo.priority);
+    const startTime = Date.now();
+    
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / breakingTime, 1);
+      setBreakingProgress(progress);
+    
+      if (progress < 1) {
+        requestAnimationFrame(updateProgress);
+      } else {
+        setIsCompleted(true);
+      }
+    };
+    requestAnimationFrame(updateProgress);
   };
 
   const getBlockBreakingTime = (priority: number): number => {
@@ -113,11 +115,12 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
       <div
         data-block-id={todo.id}
         className={`
-          relative w-16 h-16 border-2 cursor-pointer transform transition-all duration-300
+          relative ${responsiveClasses?.blockSize || 'w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16'} border-2 cursor-pointer transform transition-all duration-300
           ${blockColorClass}
+          ${isChestFull ? 'opacity-50 cursor-not-allowed' : ''}
           ${isBreaking ? `scale-${Math.max(50, 100 - Math.floor(breakingProgress * 50))} opacity-${Math.max(30, 100 - Math.floor(breakingProgress * 70))}` : 'hover:scale-105'}
-          ${isOverdue ? 'ring-4 ring-red-500' : isNearDeadline ? 'ring-2 ring-yellow-400' : ''}
-          shadow-lg overflow-hidden
+          ${isOverdue ? 'ring-1 sm:ring-2 md:ring-3 lg:ring-4 ring-red-500' : isNearDeadline ? 'ring-1 sm:ring-2 ring-yellow-400' : ''}
+          shadow-sm sm:shadow-md md:shadow-lg overflow-hidden flex-shrink-0
           ${isCompleted ? 'pointer-events-none' : ''} 
         `}
         onClick={handleClick}
@@ -134,6 +137,7 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
           backgroundPosition: 'center',
           imageRendering: 'pixelated',
         }}
+        title={isChestFull ? '完了チェストが満杯です' : undefined}
       >
         {/* 破壊進行状況のオーバーレイ */}
         {isBreaking && (
@@ -149,20 +153,20 @@ const BlockComponent: React.FC<Props> = ({ todo, onComplete, onEdit, gridPositio
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-black/10"></div>
         
         {/* タスク名表示エリア */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-black/60 px-1 py-0.5 rounded text-center">
-            <span className="text-xs font-bold text-white leading-tight">
+        <div className="absolute inset-0 flex items-center justify-center p-1">
+          <div className="bg-black/60 px-0.5 sm:px-1 py-0.5 rounded text-center max-w-full overflow-hidden">
+            <span className="text-xs font-bold text-white leading-tight block truncate">
               {todo.name.length > 4 ? todo.name.substring(0, 4) + '..' : todo.name}
             </span>
           </div>
         </div>
 
         {/* 優先度インジケーター */}
-        <div className="absolute top-1 right-1 w-2 h-2 bg-yellow-400 rounded-full border border-black"></div>
+        <div className="absolute top-0.5 sm:top-1 right-0.5 sm:right-1 w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 bg-yellow-400 rounded-full border border-black"></div>
         
         {/* 期限インジケーター */}
         {todo.deadline && (
-          <div className={`absolute bottom-1 left-1 w-2 h-2 rounded-full border border-black ${
+          <div className={`absolute bottom-0.5 sm:bottom-1 left-0.5 sm:left-1 w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 rounded-full border border-black ${
             isOverdue ? 'bg-red-500' : isNearDeadline ? 'bg-yellow-400' : 'bg-green-400'
           }`}></div>
         )}

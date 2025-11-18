@@ -60,17 +60,17 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
   const isChestFull = completedTodos.length >= MAX_CHEST_CAPACITY;
 
   const textSizes = {
-    main: '12px',
-    small: '10px',
+    main: '10px',
+    small: '9px',
     tiny: '8px',
-    button: '11px',
-    label: '14px',
-    title: '16px',
+    button: '10px',
+    label: '12px',
+    title: '14px',
   };
 
   return (
     <>
-      <div className="rounded-lg p-4 pixel-font" style={{ backgroundColor: '#c6c6c6' }}>
+      <div className="rounded-lg p-2 sm:p-3 md:p-4 pixel-font" style={{ backgroundColor: '#c6c6c6' }}>
         {/* チェスト画像ボタン */}
         <div className="flex flex-col items-center">
           <div 
@@ -80,12 +80,12 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
             <img 
               src={getChestImagePath()}
               alt="Chest" 
-              className="w-16 h-16 hover:scale-110 transition-transform"
+              className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 hover:scale-110 transition-transform"
               style={{ imageRendering: 'pixelated' }}
             />
             {/* 完了数バッジ */}
             {completedTodos.length > 0 && (
-              <div className={`absolute -top-2 -right-2 text-white font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white pointer-events-none ${
+              <div className={`absolute -top-1 sm:-top-2 -right-1 sm:-right-2 text-white font-bold rounded-full w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex items-center justify-center border border-white sm:border-2 pointer-events-none text-xs ${
                 isChestFull ? 'bg-red-500' : 'bg-green-500'
               }`}
               style={{ fontSize: textSizes.small }}
@@ -107,12 +107,12 @@ const Chest: React.FC<Props> = ({ completedTodos, onRestore, onClearAll, onDelet
           
           {/* チェストラベル */}
           <div 
-            className="mt-1 font-bold text-gray-800 bg-white/80 rounded px-2 py-1 flex items-center cursor-pointer hover:bg-white/90 transition-colors"
+            className="mt-1 font-bold text-gray-800 bg-white/80 rounded px-1 sm:px-2 py-0.5 sm:py-1 flex items-center cursor-pointer hover:bg-white/90 transition-colors text-xs sm:text-sm"
             onClick={() => setIsOpen(!isOpen)}
             style={{ fontSize: textSizes.label }}
           >
             完了チェスト
-            <span className="ml-2 text-gray-600" style={{ fontSize: textSizes.main }}>
+            <span className="ml-1 sm:ml-2 text-gray-600" style={{ fontSize: textSizes.main }}>
               {isOpen ? '▼' : '▶'}
             </span>
           </div>

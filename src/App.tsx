@@ -58,12 +58,6 @@ const App = () => {
 
   const updateIsDone = (id: string, value: boolean) => {
     if (value) {
-      // 完了チェストが満杯かチェック
-      if (completedTodos.length >= 27) {
-        alert(`完了チェストが満杯です！(${completedTodos.length}/27)\n先にいくつかのタスクを削除するか、古いタスクを整理してください。`);
-        return;
-      }
-      
       const todo = todos.find(t => t.id === id);
       if (todo) {
         const completedTodo = { ...todo, completedAt: new Date() };
@@ -149,38 +143,39 @@ const App = () => {
 
   return (
     <div 
-      className="min-h-screen bg-sky-200 p-4 relative pixel-font"
+      className="min-h-screen bg-sky-200 p-2 sm:p-4 relative pixel-font"
       style={{
         backgroundImage: `url('${getBackgroundImagePath()}')`,
         imageRendering: 'pixelated',
       }}
     >
       {/* ヘッダー */}
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-6 bg-white/50 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-          <h1 className="text-4xl font-bold mb-2 text-gray-800">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-4 sm:mb-6 bg-white/50 backdrop-blur-sm rounded-lg p-3 sm:p-4 border border-white/20">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 text-gray-800">
             🧱 Minecraft Todo App
           </h1>
-          <div className="text-gray-600">
+          <div className="text-sm sm:text-base text-gray-600">
             未完了タスク: {uncompletedCount}個 | 完了済み: {completedTodos.length}個
           </div>
         </div>
 
         {/* メインエリア */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-2 sm:gap-4">
           {/* インベントリ（メインエリア） */}
-          <div className="lg:col-span-2 p-4">
+          <div className="xl:col-span-2 p-1 sm:p-2 md:p-4">
             <World 
               todos={todos}
               updateIsDone={updateIsDone}
               addTodo={addTodo}
               updateTodo={updateTodo}
               deleteTodo={deleteTodo}
+              completedTodosCount={completedTodos.length}
             />
           </div>
 
-          {/* サイドバー（背景画像削除） */}
-          <div className="space-y-4 p-4">
+          {/* サイドバー */}
+          <div className="space-y-2 sm:space-y-4 p-1 sm:p-2 md:p-4">
             {/* チェスト */}
             <Chest 
               completedTodos={completedTodos}
@@ -194,26 +189,26 @@ const App = () => {
       </div>
 
       {/* 右下固定のインフォメーションボタン */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50">
         <button
           onClick={() => setShowInfo(!showInfo)}
-          className="bg-transparent hover:bg-gray-100/20 transition-colors p-2 rounded"
+          className="bg-transparent hover:bg-gray-100/20 transition-colors p-1 sm:p-2 rounded"
         >
           <img 
             src={getInfoButtonImagePath()}
             alt="Info" 
-            className="w-12 h-12"
+            className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
             style={{ imageRendering: 'pixelated' }}
           />
         </button>
 
         {/* インフォメーション内容（トグル表示） */}
         {showInfo && (
-          <div className="absolute bottom-16 right-0 w-80 bg-stone-600 border-4 border-stone-700 rounded-lg p-4 animate-fadeIn shadow-2xl">
-            <h3 className="text-lg font-bold text-white mb-2 flex items-center">
+          <div className="absolute bottom-12 sm:bottom-16 right-0 w-72 sm:w-80 bg-stone-600 border-4 border-stone-700 rounded-lg p-3 sm:p-4 animate-fadeIn shadow-2xl">
+            <h3 className="text-base sm:text-lg font-bold text-white mb-2 flex items-center">
               📖 操作方法
             </h3>
-            <ul className="text-white text-sm space-y-1">
+            <ul className="text-white text-xs sm:text-sm space-y-1">
               <li className="flex items-center space-x-2">
                 <span className="text-yellow-400">🖱️</span>
                 <span>空きスペース右クリック: タスク追加</span>
