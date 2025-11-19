@@ -135,12 +135,12 @@ Minecraft風の雰囲気を保ちつつ、ブロックテクスチャやイン�
 
 ### フォント
 - **フォント名:** Minecraft
-- **提供元:** [fontmeme.com](https://fontmeme.com/jfont/minecraft-craftron-gaming-font/)
-- **ライセンス:** 個人利用無料 (Free for Personal Use)
+  - **提供元:** [fontmeme.com](https://fontmeme.com/jfont/minecraft-craftron-gaming-font/)
+  - **ライセンス:** 個人利用無料 (Free for Personal Use)
 
 - **フォント名:** 美咲ゴシック第2
-- **提供元:** [littlelimit.net](https://littlelimit.net/misaki.htm)
-- **ライセンス:** 個人・商用利用ともに無料 (クレジット表記不要)
+  - **提供元:** [littlelimit.net](https://littlelimit.net/misaki.htm)
+  - **ライセンス:** 個人・商用利用ともに無料 (クレジット表記不要)
 
 ### 画像・アイコン
 - **アイコン:** 自作
@@ -155,6 +155,8 @@ Minecraft風の雰囲気を保ちつつ、ブロックテクスチャやイン�
 | 状態管理 | useState / useEffect |
 | スタイリング | Tailwind CSS |
 | データ永続化 | LocalStorage |
+| ライブラリ | uuid |
+| 開発環境 | ESLint, TypeScript |
 | デプロイ | GitHub Pages |
 
 ## セットアップ方法
