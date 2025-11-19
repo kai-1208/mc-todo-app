@@ -53,10 +53,7 @@ UIはMinecraft風ですが、**素材・画像・テクスチャはすべて自�
 ![タスク編集](./screenshots/screenshot4.png)
 
 - ブロック破壊エフェクト（ブロック破壊アニメーション）
-<video width="500" autoplay muted loop>
-  <source src="./screenshots/animation1.mp4" type="video/mp4">
-  <img src="./screenshots/animation1.gif" alt="破壊エフェクト" width="500">
-</video>
+![破壊エフェクト](./screenshots/animation1.gif)
 
 - レスポンシブデザイン
 ![レスポンシブデザイン](./screenshots/screenshot5.png)
