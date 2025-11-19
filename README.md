@@ -56,6 +56,7 @@ UIはMinecraft風ですが、**素材・画像・テクスチャはすべて自�
 ![破壊エフェクト](./screenshots/animation1.gif)
 
 - レスポンシブデザイン
+
 ![レスポンシブデザイン](./screenshots/screenshot5.png)
 
 ## 基本操作
