@@ -43,14 +43,17 @@ UIはMinecraft風ですが、**素材・画像・テクスチャはすべて自�
 - メイン画面
 ![メイン画面](./screenshots/screenshot1.png)
 
-- インベントリ風UIのタスク配置
-![インベントリ](./screenshots/screenshot2.png)
+- タスク追加時のメニュー表示
+![タスク追加](./screenshots/screenshot2.png)
 
-- 掘削エフェクト（ブロック破壊アニメーション）
-![掘削エフェクト](./screenshots/screenshot3.png)
+- タスク編集時のメニュー表示
+![タスク編集](./screenshots/screenshot3.png)
+
+- ブロック破壊エフェクト（ブロック破壊アニメーション）
+![破壊エフェクト](./screenshots/screenshot4.gif)
 
 - レスポンシブデザイン
-![レスポンシブデザイン](./screenshots/screenshot4.png)
+![レスポンシブデザイン](./screenshots/screenshot5.png)
 
 ## 工夫した点・挑戦した点
 
