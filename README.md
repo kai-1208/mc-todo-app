@@ -40,24 +40,17 @@ UIはMinecraft風ですが、**素材・画像・テクスチャはすべて自�
 
 ### スクリーンショット
 
-- メイン画面
-![メイン画面](./screenshots/screenshot1.png)
+| メイン画面 | タスク追加時のメニュー表示 |
+|:---:|:---:|
+| ![メイン画面](./screenshots/screenshot1.png) | ![タスク追加](./screenshots/screenshot2.png) |
 
-- タスク追加時のメニュー表示
-![タスク追加](./screenshots/screenshot2.png)
+| タスクの情報表示 | タスク編集時のメニュー表示 |
+|:---:|:---:|
+| ![タスク情報](./screenshots/screenshot3.png) | ![タスク編集](./screenshots/screenshot4.png) |
 
-- タスクの情報表示
-![タスク情報](./screenshots/screenshot3.png)
-
-- タスク編集時のメニュー表示
-![タスク編集](./screenshots/screenshot4.png)
-
-- ブロック破壊エフェクト（ブロック破壊アニメーション）
-![破壊エフェクト](./screenshots/animation1.gif)
-
-- レスポンシブデザイン
-
-![レスポンシブデザイン](./screenshots/screenshot5.png)
+| ブロック破壊エフェクト（ブロック破壊アニメーション） | レスポンシブデザイン |
+|:---:|:---:|
+| ![破壊エフェクト](./screenshots/animation1.gif) | ![レスポンシブデザイン](./screenshots/screenshot5.png) |
 
 ## 基本操作
 
@@ -170,7 +163,7 @@ npm run dev
 
 MIT License
 
-Copyright (c) 2025 otetehandcreampan
+Copyright (c) 2025 Kai Takahashi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
