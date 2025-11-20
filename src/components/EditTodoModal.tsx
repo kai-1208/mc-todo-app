@@ -17,6 +17,35 @@ const EditTodoModal: React.FC<Props> = ({ todo, position, onClose, onSave, onDel
     todo.deadline ? new Date(todo.deadline.getTime() - todo.deadline.getTimezoneOffset() * 60000).toISOString().slice(0, 16) : ''
   );
 
+  const modalWidth = 420;
+  const modalHeight = 500; // 編集モーダルは削除ボタンがあるので少し高め
+  const margin = 60; // 画面端からの余白
+
+  const calculatePosition = () => {
+    let left = position.x;
+    let top = position.y;
+
+    // 右端チェック
+    if (left + modalWidth > window.innerWidth - margin) {
+      left = window.innerWidth - modalWidth - margin;
+    }
+    // 左端チェック
+    if (left < margin) {
+      left = margin;
+    }
+
+    // 下端チェック
+    if (top + modalHeight > window.innerHeight - margin) {
+      top = window.innerHeight - modalHeight - margin;
+    }
+    // 上端チェック
+    if (top < margin) {
+      top = margin;
+    }
+
+    return { left, top };
+  };
+
   const handleSave = () => {
     if (name.trim()) {
       onSave({
@@ -47,6 +76,8 @@ const EditTodoModal: React.FC<Props> = ({ todo, position, onClose, onSave, onDel
   const blockType = getBlockTypeFromPriority(priority);
   const blockName = getBlockName(blockType);
 
+  const modalPosition = calculatePosition();
+
   return (
     <>
       {/* 背景オーバーレイ（半透明黒） */}
@@ -61,11 +92,15 @@ const EditTodoModal: React.FC<Props> = ({ todo, position, onClose, onSave, onDel
       
       {/* モーダル */}
       <div
-        className="fixed bg-stone-500 border-4 border-stone-600 rounded-lg p-6 min-w-[400px] shadow-2xl"
+        className="fixed bg-stone-500 border-4 border-stone-600 rounded-lg p-6 shadow-2xl"
         style={{
-          left: Math.min(position.x, window.innerWidth - 420),
-          top: Math.min(position.y, window.innerHeight - 450),
+          left: modalPosition.left,
+          top: modalPosition.top,
+          width: `${modalWidth}px`,
+          maxWidth: `calc(100vw - ${margin * 2}px)`,
+          maxHeight: `calc(100vh - ${margin * 2}px)`,
           zIndex: 9999,
+          overflow: 'auto',
         }}
         onKeyDown={handleKeyDown}
       >

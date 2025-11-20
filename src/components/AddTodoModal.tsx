@@ -13,6 +13,35 @@ const AddTodoModal: React.FC<Props> = ({ position, onClose, onAdd }) => {
   const [priority, setPriority] = useState(3);
   const [deadline, setDeadline] = useState<string>('');
 
+  const modalWidth = 420;
+  const modalHeight = 450;
+  const margin = 105; // 画面端からの余白
+
+  const calculatePosition = () => {
+    let left = position.x;
+    let top = position.y;
+
+    // 右端チェック
+    if (left + modalWidth > window.innerWidth - margin) {
+      left = window.innerWidth - modalWidth - margin;
+    }
+    // 左端チェック
+    if (left < margin) {
+      left = margin;
+    }
+
+    // 下端チェック
+    if (top + modalHeight > window.innerHeight - margin) {
+      top = window.innerHeight - modalHeight - margin;
+    }
+    // 上端チェック
+    if (top < margin) {
+      top = margin;
+    }
+
+    return { left, top };
+  };
+
   const handleSubmit = () => {
     if (name.trim()) {
       onAdd({
@@ -36,6 +65,8 @@ const AddTodoModal: React.FC<Props> = ({ position, onClose, onAdd }) => {
   const blockType = getBlockTypeFromPriority(priority);
   const blockName = getBlockName(blockType);
 
+  const modalPosition = calculatePosition();
+
   return (
     <>
       {/* 背景オーバーレイ（半透明黒） */}
@@ -50,11 +81,15 @@ const AddTodoModal: React.FC<Props> = ({ position, onClose, onAdd }) => {
       
       {/* モーダル */}
       <div
-        className="fixed bg-stone-500 border-4 border-stone-600 rounded-lg p-6 min-w-[400px] shadow-2xl"
+        className="fixed bg-stone-500 border-4 border-stone-600 rounded-lg p-6 shadow-2xl"
         style={{
-          left: Math.min(position.x, window.innerWidth - 420),
-          top: Math.min(position.y, window.innerHeight - 400),
+          left: modalPosition.left,
+          top: modalPosition.top,
+          width: `${modalWidth}px`,
+          maxWidth: `calc(100vw - ${margin * 2}px)`,
+          maxHeight: `calc(100vh - ${margin * 2}px)`,
           zIndex: 9999,
+          overflow: 'auto',
         }}
         onKeyDown={handleKeyDown}
       >
